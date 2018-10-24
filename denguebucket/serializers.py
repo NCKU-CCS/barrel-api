@@ -2,22 +2,22 @@ from .models import Bucket, BucketRecord, BucketStatistics, DengueBucket
 from rest_framework import serializers
 
 
-class BucketSerializer(serializers.HyperlinkedModelSerializer):
+class BucketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bucket
         fields = '__all__'
 
-class BucketRecordSerializer(serializers.HyperlinkedModelSerializer):
+class BucketRecordSerializer(serializers.ModelSerializer):
     class Meta:
         model = BucketRecord
         fields = '__all__'
 
-class BucketStatisticsSerializer(serializers.HyperlinkedModelSerializer):
+class BucketStatisticsSerializer(serializers.ModelSerializer):
     class Meta:
         model = BucketStatistics
         fields = '__all__'
 
-class DengueBucketSerializer(serializers.HyperlinkedModelSerializer):
+class DengueBucketSerializer(serializers.ModelSerializer):
     class Meta:
         model = DengueBucket
         fields = '__all__'
