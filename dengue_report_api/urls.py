@@ -21,5 +21,5 @@ urlpatterns = [
     url(r'^admin/',  admin.site.urls),
     url(r'^bucket/', include('bucket.urls')),
     url(r'^bucket-record/', include('bucketRecord.urls')),
-    url(r'^api-auth/', include('rest_framework.urls'))
+    url(r'^api/', include('denguebucket.urls')),
 ]

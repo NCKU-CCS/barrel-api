@@ -2,22 +2,36 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from django.contrib.auth.models import User, Group
+from .models import Bucket, BucketRecord, BucketStatistics, DengueBucket
+from .serializers import BucketSerializer, BucketRecordSerializer, BucketStatisticsSerializer, DengueBucketSerializer
 from rest_framework import viewsets
-from tutorial.quickstart.serializers import UserSerializer, GroupSerializer
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-
-
-class GroupViewSet(viewsets.ModelViewSet):
+class BucketViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
+    queryset = Bucket.objects.all()
+    serializer_class = BucketSerializer
+
+class BucketRecordViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = BucketRecord.objects.all()
+    serializer_class = BucketRecordSerializer
+
+
+class BucketStatisticsViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = BucketStatistics.objects.all()
+    serializer_class = BucketStatisticsSerializer
+
+class DengueBucketViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = DengueBucket.objects.all()
+    serializer_class = DengueBucketSerializer
