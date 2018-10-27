@@ -130,3 +130,6 @@ key.py
 .vscode
 
 # End of https://www.gitignore.io/api/django
+
+# server pem
+dengue-report.pem

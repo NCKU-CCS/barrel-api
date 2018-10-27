@@ -5,14 +5,16 @@ from django.shortcuts import render
 from .models import Bucket, BucketRecord, BucketStatistics, DengueBucket
 from .serializers import BucketSerializer, BucketRecordSerializer, BucketStatisticsSerializer, DengueBucketSerializer
 from rest_framework import viewsets
+from rest_framework.response import Response 
 
-
+import twd97
+from datetime import datetime, timedelta
 class BucketViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
-    queryset = Bucket.objects.all()
     serializer_class = BucketSerializer
+    queryset = Bucket.objects.all()
 
 class BucketRecordViewSet(viewsets.ModelViewSet):
     """
@@ -20,7 +22,6 @@ class BucketRecordViewSet(viewsets.ModelViewSet):
     """
     queryset = BucketRecord.objects.all()
     serializer_class = BucketRecordSerializer
-
 
 class BucketStatisticsViewSet(viewsets.ModelViewSet):
     """
