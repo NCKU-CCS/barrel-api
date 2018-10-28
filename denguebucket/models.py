@@ -44,10 +44,10 @@ class Bucket(models.Model):
     # 備註
     note = models.TextField()
     # WS84轉換成經緯度座標
-    lng = models.FloatField()
-    lat = models.FloatField()
+    lng = models.FloatField(default=0)
+    lat = models.FloatField(default=0)
 
-    point = models.PointField(geography=True, srid=4326)
+    point = models.PointField(geography=True, srid=4326, default=0)
 
 class BucketRecord(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)

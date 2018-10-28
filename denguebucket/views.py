@@ -7,6 +7,9 @@ from .serializers import BucketSerializer, BucketRecordSerializer, BucketStatist
 from rest_framework import viewsets
 from rest_framework.response import Response 
 
+from  rest_framework.decorators import action
+
+
 import twd97
 from datetime import datetime, timedelta
 class BucketViewSet(viewsets.ModelViewSet):
@@ -15,6 +18,12 @@ class BucketViewSet(viewsets.ModelViewSet):
     """
     serializer_class = BucketSerializer
     queryset = Bucket.objects.all()
+
+    @action(detail=True, methods=['post'])
+    def new_bucket(self, request, pk=None):
+        serializer = BucketSerializer(data = request.data)
+        serializer.save()
+
 
 class BucketRecordViewSet(viewsets.ModelViewSet):
     """
