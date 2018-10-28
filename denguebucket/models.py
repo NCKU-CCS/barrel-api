@@ -35,7 +35,7 @@ class DengueBucket(models.Model):
 
 class Bucket(models.Model):
     # 流水號
-    id = models.TextField(primary_key=True)
+    id = models.TextField(primary_key=True, default= "")
     # 座標WS84 X, Y
     ws84_x = models.FloatField()
     ws84_y = models.FloatField()
@@ -44,10 +44,12 @@ class Bucket(models.Model):
     # 備註
     note = models.TextField()
     # WS84轉換成經緯度座標
-    lng = models.FloatField(default=0)
-    lat = models.FloatField(default=0)
+    lng = models.FloatField(default=0.0)
+    lat = models.FloatField(default=0.0)
 
-    point = models.PointField(geography=True, srid=4326, default=0)
+
+    point = models.PointField(geography=True, srid=4326, default = "")
+
 
 class BucketRecord(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
@@ -79,6 +81,6 @@ class BucketStatistics(models.Model):
     # 統計卵數
     total_egg_count = models.IntegerField(default=0)
     # 陽性率
-    positive_rate = models.FloatField(default=0)
+    positive_rate = models.FloatField(default=0.0)
     # 平均卵數（十桶）
-    avg_egg_count = models.FloatField(default=0)
+    avg_egg_count = models.FloatField(default=0.0)

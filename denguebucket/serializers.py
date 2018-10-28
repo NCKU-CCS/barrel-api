@@ -27,6 +27,17 @@ class BucketSerializer(serializers.ModelSerializer):
             point='POINT(%f %f)' % (ws84_x, ws84_y)
         )
 
+    def update(self, instance, validated_data):
+        instance.ws84_x = validated_data.get('ws84_x', instance.ws84_x)
+        instance.ws84_y = validated_data.get('ws84_y', instance.ws84_y)
+        instance.address = validated_data.get('address', instance.address)
+        instance.note = validated_data.get('note', instance.note)
+        bucket_lat, bucket_lng = twd97.towgs84(float(instance.ws84_x), float(instance.ws84_y))
+        instance.lng = bucket_lng
+        instance.lat = bucket_lat
+        instance.point = 'POINT(%f %f)' % (instance.ws84_x, instance.ws84_y)
+        return instance
+
 class BucketRecordSerializer(serializers.ModelSerializer):
     class Meta:
         model = BucketRecord

@@ -19,12 +19,6 @@ class BucketViewSet(viewsets.ModelViewSet):
     serializer_class = BucketSerializer
     queryset = Bucket.objects.all()
 
-    @action(detail=True, methods=['post'])
-    def new_bucket(self, request, pk=None):
-        serializer = BucketSerializer(data = request.data)
-        serializer.save()
-
-
 class BucketRecordViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
