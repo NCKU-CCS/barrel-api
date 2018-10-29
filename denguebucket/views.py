@@ -31,12 +31,22 @@ class BucketViewSet(viewsets.ModelViewSet):
             }
         return HttpResponse(json.dumps(bucket_dict), content_type="application/json")
 
+    def update(self, request, *args, **kwargs):
+        bucket = self.get_object()
+        serializer = BucketSerializer(bucket, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+
+
 class BucketRecordViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
     queryset = BucketRecord.objects.all()
     serializer_class = BucketRecordSerializer
+
+
 
 class BucketStatisticsViewSet(viewsets.ModelViewSet):
     """

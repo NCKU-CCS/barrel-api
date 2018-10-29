@@ -35,7 +35,8 @@ class BucketSerializer(serializers.ModelSerializer):
         bucket_lat, bucket_lng = twd97.towgs84(float(instance.ws84_x), float(instance.ws84_y))
         instance.lng = bucket_lng
         instance.lat = bucket_lat
-        instance.point = 'POINT(%f %f)' % (instance.ws84_x, instance.ws84_y)
+        instance.point = 'POINT(%f %f)' % (float(instance.ws84_x), float(instance.ws84_y))
+        instance.save()
         return instance
 
 class BucketRecordSerializer(serializers.ModelSerializer):
