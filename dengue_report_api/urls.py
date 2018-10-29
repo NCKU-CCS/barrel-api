@@ -19,7 +19,5 @@ from django.conf.urls import url, include
 
 urlpatterns = [
     url(r'^admin/',  admin.site.urls),
-    url(r'^bucket/', include('bucket.urls')),
-    url(r'^bucket-record/', include('bucketRecord.urls')),
     url(r'^api/', include('denguebucket.urls')),
 ]

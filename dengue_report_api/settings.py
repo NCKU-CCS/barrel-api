@@ -38,9 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
-    'bucket',
-    'bucketRecord',
-    'bucketStatistics',
     'rest_framework',
     'denguebucket',
 ]
