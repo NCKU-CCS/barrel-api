@@ -6,7 +6,7 @@ from .models import Bucket, BucketRecord, BucketStatistics, DengueBucket
 from .serializers import BucketSerializer, BucketRecordSerializer, BucketStatisticsSerializer, DengueBucketSerializer
 from rest_framework import viewsets, status
 from rest_framework.response import Response 
-from rest_framework.decorators import action, list_route, detail_route
+from rest_framework.decorators import action
 from django.http import HttpResponse
 
 import twd97
@@ -20,7 +20,13 @@ class BucketViewSet(viewsets.ModelViewSet):
     serializer_class = BucketSerializer
     queryset = Bucket.objects.all()
 
-    def list(self, request, *args, **kwargs):
+    @action(detail=False, methods=['get'])
+    def set_password(self, request, pk=None):
+        print ("testing")
+        return HttpResponse(json.dumps(dict()), content_type="application/json")
+
+    @action(detail=False, methods=['get'])
+    def location(self, request, *args, **kwargs):
         buckets = Bucket.objects.all()
         bucket_dict = dict()
         for bucket in buckets:
