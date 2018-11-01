@@ -19,12 +19,7 @@ class BucketViewSet(viewsets.ModelViewSet):
     """
     serializer_class = BucketSerializer
     queryset = Bucket.objects.all()
-
-    @action(detail=False, methods=['get'])
-    def set_password(self, request, pk=None):
-        print ("testing")
-        return HttpResponse(json.dumps(dict()), content_type="application/json")
-
+    
     @action(detail=False, methods=['get'])
     def location(self, request, *args, **kwargs):
         buckets = Bucket.objects.all()
