@@ -52,15 +52,12 @@ class BucketRecordViewSet(viewsets.ModelViewSet):
             return queryset
         else:
             start = self.request.query_params.get('start')
-            print (start)
             if start is None:
                 start = (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d")
             end = self.request.query_params.get('end')
-            print (end)
             if end is None:
                 end = datetime.now().strftime("%Y-%m-%d")
             county = self.request.query_params.get('county')
-            print (county)
             if county is None:
                 county = '台南'
             try:
@@ -73,9 +70,7 @@ class BucketRecordViewSet(viewsets.ModelViewSet):
                 return HttpResponse(status=400)
 
             town = self.request.query_params.get('town')
-            print (town)
             village = self.request.query_params.get('village')
-            print (village)
 
             if town is not None:
                 queryset = queryset.filter(town=town)
