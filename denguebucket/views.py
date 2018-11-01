@@ -42,7 +42,7 @@ class BucketRecordViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = BucketRecord.objects.all()
+    # queryset = BucketRecord.objects.all()
     serializer_class = BucketRecordSerializer
 
     def get_queryset(self):
