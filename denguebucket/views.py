@@ -29,8 +29,9 @@ class BucketViewSet(viewsets.ModelViewSet):
                 'lng': bucket.lng,
                 'lat': bucket.lat
             }
-        return HttpResponse(json.dumps(bucket_dict), content_type="application/json")
-
+        print(type(bucket_dict))
+        return Response(bucket_dict)
+    
     def update(self, request, *args, **kwargs):
         bucket = self.get_object()
         serializer = BucketSerializer(bucket, data=request.data)
