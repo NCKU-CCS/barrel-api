@@ -42,8 +42,8 @@ class BucketSerializer(serializers.ModelSerializer):
 class BucketRecordSerializer(serializers.ModelSerializer):
     class Meta:
         model = BucketRecord
-        # fields = '__all__'
-        exclude = ('id',)
+        fields = '__all__'
+        # exclude = ('id',)
 
 class BucketStatisticsSerializer(serializers.ModelSerializer):
     class Meta:
