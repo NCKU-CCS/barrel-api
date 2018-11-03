@@ -87,6 +87,21 @@ DATABASES = {
     }
 }
 
+# Caching
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379',
+        "OPTIONS": {
+            "CLIENT_CLASS": "redis_cache.client.DefaultClient",
+        },
+    },
+}
+# drf-extensions
+REST_FRAMEWORK_EXTENSIONS = {
+      # Expired time unit sec
+    'DEFAULT_CACHE_RESPONSE_TIMEOUT':60*60
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators

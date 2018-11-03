@@ -6,21 +6,24 @@ from .models import Bucket, BucketRecord, BucketStatistics, DengueBucket
 from .serializers import BucketSerializer, BucketRecordSerializer, BucketStatisticsSerializer, DengueBucketSerializer
 from rest_framework import viewsets, status
 from rest_framework.response import Response 
-from rest_framework.decorators import action, list_route, detail_route
+from rest_framework.decorators import action, api_view
+from rest_framework_extensions.cache.mixins import CacheResponseMixin
 from django.http import HttpResponse
+from django.core.cache import cache
 
 import twd97
 import json
 from datetime import datetime, timedelta
 
-class BucketViewSet(viewsets.ModelViewSet):
+class BucketViewSet(CacheResponseMixin, viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
     serializer_class = BucketSerializer
     queryset = Bucket.objects.all()
 
-    def list(self, request, *args, **kwargs):
+    @action(methods = ['get'], detail = False)
+    def location(self, request, *args, **kwargs):
         buckets = Bucket.objects.all()
         bucket_dict = dict()
         for bucket in buckets:
@@ -28,7 +31,7 @@ class BucketViewSet(viewsets.ModelViewSet):
                 'lng': bucket.lng,
                 'lat': bucket.lat
             }
-        return HttpResponse(json.dumps(bucket_dict), content_type="application/json")
+        return Response(bucket_dict)
 
     def update(self, request, *args, **kwargs):
         bucket = self.get_object()
@@ -38,7 +41,7 @@ class BucketViewSet(viewsets.ModelViewSet):
             return Response(serializer.data)
 
 
-class BucketRecordViewSet(viewsets.ModelViewSet):
+class BucketRecordViewSet(CacheResponseMixin, viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
