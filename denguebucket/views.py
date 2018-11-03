@@ -70,7 +70,7 @@ class BucketRecordViewSet(CacheResponseMixin, viewsets.ModelViewSet):
                     investigate_date__gte=start
                     ).filter(county=county)
             except:
-                return HttpResponse(status=400)
+                return Response(status=400)
 
             town = self.request.query_params.get('town')
             village = self.request.query_params.get('village')
