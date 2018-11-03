@@ -31,14 +31,25 @@ class BucketViewSet(CacheResponseMixin, viewsets.ModelViewSet):
                 'lng': bucket.lng,
                 'lat': bucket.lat
             }
-        return Response(bucket_dict)
+        return Response(bucket_dict)    
 
-    def update(self, request, *args, **kwargs):
+    def put(self, request, *args, **kwargs):
         bucket = self.get_object()
         serializer = BucketSerializer(bucket, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
+
+    def create(self, request):
+        bucket = self.get_object()
+        serializer = BucketSerializer(bucket, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+
+    def destroy(self, request, pk):
+        Bucket.objects.delete(id = pk)
+        
 
 
 class BucketRecordViewSet(CacheResponseMixin, viewsets.ModelViewSet):
