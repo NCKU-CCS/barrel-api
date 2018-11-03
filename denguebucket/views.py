@@ -16,13 +16,13 @@ import json
 from datetime import datetime, timedelta
 
 class BucketViewSet(CacheResponseMixin, viewsets.ModelViewSet):
-    """
+"""
     API endpoint that allows groups to be viewed or edited.
     """
     serializer_class = BucketSerializer
     queryset = Bucket.objects.all()
-
-    @action(methods = ['get'], detail = False)
+    
+    @action(detail=False, methods=['get'])
     def location(self, request, *args, **kwargs):
         buckets = Bucket.objects.all()
         bucket_dict = dict()
@@ -31,27 +31,15 @@ class BucketViewSet(CacheResponseMixin, viewsets.ModelViewSet):
                 'lng': bucket.lng,
                 'lat': bucket.lat
             }
-        return Response(bucket_dict)    
-
-    def put(self, request, *args, **kwargs):
+        print(type(bucket_dict))
+        return Response(bucket_dict)
+    
+    def update(self, request, *args, **kwargs):
         bucket = self.get_object()
         serializer = BucketSerializer(bucket, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-
-    def create(self, request):
-        bucket = self.get_object()
-        serializer = BucketSerializer(bucket, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-
-    def destroy(self, request, pk):
-        Bucket.objects.delete(id = pk)
-        return Response(pk)
-        
-
 
 class BucketRecordViewSet(CacheResponseMixin, viewsets.ModelViewSet):
     """
