@@ -49,6 +49,7 @@ class BucketViewSet(CacheResponseMixin, viewsets.ModelViewSet):
 
     def destroy(self, request, pk):
         Bucket.objects.delete(id = pk)
+        return Response(pk)
         
 
 
