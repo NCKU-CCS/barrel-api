@@ -45,7 +45,7 @@ class BucketRecordViewSet(CacheResponseMixin, viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    # queryset = BucketRecord.objects.all()
+    queryset = BucketRecord.objects.all()
     serializer_class = BucketRecordSerializer
 
     def get_queryset(self):
@@ -55,12 +55,15 @@ class BucketRecordViewSet(CacheResponseMixin, viewsets.ModelViewSet):
             return queryset
         else:
             start = self.request.query_params.get('start')
+            print (start)
             if start is None:
                 start = (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d")
             end = self.request.query_params.get('end')
+            print (end)
             if end is None:
                 end = datetime.now().strftime("%Y-%m-%d")
             county = self.request.query_params.get('county')
+            print (county)
             if county is None:
                 county = '台南'
             try:
@@ -73,7 +76,9 @@ class BucketRecordViewSet(CacheResponseMixin, viewsets.ModelViewSet):
                 return Response(status=400)
 
             town = self.request.query_params.get('town')
+            print (town)
             village = self.request.query_params.get('village')
+            print (village)
 
             if town is not None:
                 queryset = queryset.filter(town=town)
