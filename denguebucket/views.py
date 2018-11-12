@@ -6,24 +6,21 @@ from .models import Bucket, BucketRecord, BucketStatistics, DengueBucket
 from .serializers import BucketSerializer, BucketRecordSerializer, BucketStatisticsSerializer, DengueBucketSerializer
 from rest_framework import viewsets, status
 from rest_framework.response import Response 
-from rest_framework.decorators import action, api_view
-from rest_framework_extensions.cache.mixins import CacheResponseMixin
+from rest_framework.decorators import action
 from django.http import HttpResponse
-from django.core.cache import cache
 
 import twd97
 import json
 from datetime import datetime, timedelta
 
-class BucketViewSet(CacheResponseMixin, viewsets.ModelViewSet):
-"""
+class BucketViewSet(viewsets.ModelViewSet):
+    """
     API endpoint that allows groups to be viewed or edited.
     """
     serializer_class = BucketSerializer
     queryset = Bucket.objects.all()
     
-    @action(detail=False, methods=['get'])
-    def location(self, request, *args, **kwargs):
+    def list(self, request, *args, **kwargs):
         buckets = Bucket.objects.all()
         bucket_dict = dict()
         for bucket in buckets:
@@ -31,7 +28,6 @@ class BucketViewSet(CacheResponseMixin, viewsets.ModelViewSet):
                 'lng': bucket.lng,
                 'lat': bucket.lat
             }
-        print(type(bucket_dict))
         return Response(bucket_dict)
     
     def update(self, request, *args, **kwargs):
@@ -41,11 +37,11 @@ class BucketViewSet(CacheResponseMixin, viewsets.ModelViewSet):
             serializer.save()
             return Response(serializer.data)
 
-class BucketRecordViewSet(CacheResponseMixin, viewsets.ModelViewSet):
+class BucketRecordViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = BucketRecord.objects.all()
+    # queryset = BucketRecord.objects.all()
     serializer_class = BucketRecordSerializer
 
     def get_queryset(self):
@@ -55,15 +51,12 @@ class BucketRecordViewSet(CacheResponseMixin, viewsets.ModelViewSet):
             return queryset
         else:
             start = self.request.query_params.get('start')
-            print (start)
             if start is None:
                 start = (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d")
             end = self.request.query_params.get('end')
-            print (end)
             if end is None:
                 end = datetime.now().strftime("%Y-%m-%d")
             county = self.request.query_params.get('county')
-            print (county)
             if county is None:
                 county = '台南'
             try:
@@ -76,9 +69,7 @@ class BucketRecordViewSet(CacheResponseMixin, viewsets.ModelViewSet):
                 return Response(status=400)
 
             town = self.request.query_params.get('town')
-            print (town)
             village = self.request.query_params.get('village')
-            print (village)
 
             if town is not None:
                 queryset = queryset.filter(town=town)
