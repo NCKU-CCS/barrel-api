@@ -83,10 +83,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'denguebucket',
-        'USER': 'denguebucketuser',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '',
+        'USER': 'denguebucketuser2018',
+        'PASSWORD': 'denguebucketpassword2018',
+        'HOST': 'denguebucket-db.ctbcfrbnvgi6.us-east-2.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
