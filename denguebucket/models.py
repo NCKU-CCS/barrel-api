@@ -18,7 +18,7 @@ class DengueBucket(models.Model):
 
     point = models.PointField(geography=True, srid=4326)
 
-    investigate_date = models.DateField()
+    investigate_date = models.DateField(db_index=True)
     # 縣市、區、里
     county = models.TextField()
     town = models.TextField()
@@ -35,7 +35,7 @@ class DengueBucket(models.Model):
 
 class Bucket(models.Model):
     # 流水號
-    id = models.TextField(primary_key=True, default= "")
+    id = models.TextField(primary_key=True, default= "", db_index=True)
     # 座標WS84 X, Y
     ws84_x = models.FloatField()
     ws84_y = models.FloatField()
@@ -56,7 +56,7 @@ class BucketRecord(models.Model):
     # 流水號
     bucket_id = models.TextField()
     # 調查日期
-    investigate_date = models.DateField()
+    investigate_date = models.DateField(db_index=True)
     # 縣市、區、里
     county = models.TextField()
     town = models.TextField()
